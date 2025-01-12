@@ -1,53 +1,37 @@
 
-import tailwindConfig from "../tailwind.config";
-import { useEffect, useState } from "react";
-import DefaultCard from "./DefaultCard";
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import Header from './Home/Header';
+import HomePage from './Home/Homepage';
+import Playingnow,{PlayingnowProps} from './ComponentLinks/Playingnow';
+import Popular,{MoviepopularProps} from './ComponentLinks/Moviepopular';
+import TopRate ,{TopProps} from './ComponentLinks/Top';
+
+import Upcomming,{UpcommingProps}from './ComponentLinks/Upcomming';
 
 export default function App() {
+     return (
+          <>
+               <BrowserRouter>
+                    <Routes>
+                         <Route index element={<HomePage />} />
+                         
+                         <Route to='/header' element={<Header />} />
+                         <Route path='/home' element={<HomePage />} />
+                         
+                         <Route path='/now-playing' element={<Playingnow />} />
+                         <Route path='/*' element={<PlayingnowProps />} />
+                         
+                         <Route path='/top-rated' element={<TopRate />} />
+                         <Route path="/*" element={<TopProps />} />
+                         
+                         <Route path="popular" element={<Popular />} />
+                         <Route path='/*' element={<MoviepopularProps />} />
+                         
+                         <Route path="/up-comming" element={<Upcomming />} />
+                         <Route path='/*' element={<UpcommingProps />} />
+                    </Routes>
+               </BrowserRouter>
+          </>
+     );
 
-  const [data, setData] = useState([{}]);
-
-  useEffect(() => {
-    {
-      fetch("https://jsonplaceholder.typicode.com/posts")
-        .then((response) => response.json())
-        .then((json) => setData(json));
-    }
-  }, [data]);
-  return (
-    <div className="grid grid-cols-4 gap-4">
-      
-      {data.map((d)=> (
-        <DefaultCard title={d.title} body={d.body}/>
-      ))}
-    </div>
-  );
 }
-
-// Define state
-//  const [count, setCount] = useState(0)
-
-// const increase = () => {
-// Update state
-// setCount(count + 1)
-//     }
-
-//     const decrease = () => {
-//         // Update state
-//         setCount(count - 1)
-//     }
-
-//     useEffect(() =>{
-//      console.log('This is side effect')
-//     },{count})
-
-//     return (
-//         < >
-//             <h1>Welcome to React Hook</h1>
-//             {/* Use State */}
-//             <h1>{count}</h1>
-//             <button onClick={increase}>Increase</button>
-//             <button onClick={decrease} style={{color:'red'}}>Decrease</button>
-//         </>
-//     )
-// }
